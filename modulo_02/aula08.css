@@ -1,0 +1,145 @@
+/* =========================================
+   VARIÁVEIS DE CORES & RESET
+   ========================================= */
+:root {
+    --bege-claro: #f5f5dc;
+    --verde-musgo: #4a5d23;
+    --laranja: #d35400;
+    --texto-escuro: #2c3e50;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bege-claro);
+    color: var(--texto-escuro);
+    line-height: 1.6;
+}
+
+/* =========================================
+   REGRAS OBRIGATÓRIAS RESPONSIVAS
+   ========================================= */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Remove o espaço extra indesejado abaixo da imagem */
+    border-radius: 8px; /* Arredonda os cantos das imagens */
+}
+
+/* O clamp() garante que a fonte nunca fique minúscula nem gigante.
+   Estrutura: clamp(minimo, ideal-baseado-na-tela(vw), maximo) */
+h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: var(--bege-claro);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--verde-musgo);
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--laranja);
+}
+
+/* =========================================
+   ESTRUTURA BASE (MOBILE-FIRST)
+   ========================================= */
+.header {
+    background-color: var(--verde-musgo);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Navbar escondida por padrão no celular */
+.navbar ul {
+    list-style: none;
+    display: none; 
+    gap: 20px;
+}
+
+.navbar a {
+    color: var(--bege-claro);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: var(--laranja);
+}
+
+.main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Galeria - Base: 1 Coluna (Mobile) */
+.galeria {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 Coluna */
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: white;
+    border: 2px solid var(--verde-musgo);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+figure {
+    margin-top: 15px;
+}
+
+figcaption {
+    margin-top: 10px;
+    font-style: italic;
+    color: #666;
+}
+
+.footer {
+    background-color: var(--verde-musgo);
+    color: var(--bege-claro);
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* =========================================
+   MEDIA QUERIES (ADAPTAÇÕES PARA TELAS MAIORES)
+   ========================================= */
+
+/* Tablet (Telas a partir de 768px) */
+@media (min-width: 768px) {
+    /* Mostra os links da Navbar */
+    .navbar ul {
+        display: flex;
+    }
+
+    /* Cards em 2 colunas */
+    .galeria {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop (Telas a partir de 1024px) */
+@media (min-width: 1024px) {
+    /* Cards em 3 colunas */
+    .galeria {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

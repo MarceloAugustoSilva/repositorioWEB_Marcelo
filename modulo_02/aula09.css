@@ -1,0 +1,201 @@
+/* =========================================
+   VARIÁVEIS DE CORES & RESET
+   ========================================= */
+:root {
+    --bege-claro: #f5f5dc;
+    --verde-musgo: #4a5d23;
+    --laranja: #d35400;
+    --texto-escuro: #2c3e50;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bege-claro);
+    color: var(--texto-escuro);
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* =========================================
+   TIPOGRAFIA (CLAMP)
+   ========================================= */
+h1 { font-size: clamp(1.8rem, 5vw, 3rem); color: var(--bege-claro); }
+h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); color: var(--verde-musgo); margin-bottom: 10px; }
+h3 { font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--laranja); }
+
+/* =========================================
+   1. KEYFRAMES: FADE-IN NO CARREGAMENTO
+   ========================================= */
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.animacao-fade-in {
+    animation: fade-in 1.5s ease-in-out forwards;
+}
+
+/* =========================================
+   2. TRANSIÇÕES GERAIS (LINKS E BOTÕES)
+   ========================================= */
+a, button, .card {
+    transition: all 0.3s ease;
+}
+
+/* =========================================
+   LAYOUT BASE (MOBILE-FIRST)
+   ========================================= */
+.header {
+    background-color: var(--verde-musgo);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar ul {
+    list-style: none;
+    display: none; /* Esconde no mobile */
+    gap: 20px;
+}
+
+.navbar a {
+    color: var(--bege-claro);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: var(--laranja);
+}
+
+.main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Galeria Mobile (1 coluna) */
+.galeria {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: white;
+    border: 2px solid var(--verde-musgo);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+/* =========================================
+   3. EFEITO HOVER NOS CARDS
+   ========================================= */
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+    border-color: var(--laranja);
+}
+
+figure { margin-top: 15px; }
+figcaption { margin-top: 10px; font-style: italic; color: #666; }
+
+/* =========================================
+   4. FORMULÁRIO E BOTÃO ANIMADO
+   ========================================= */
+.contato-section {
+    margin-top: 60px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 2px solid var(--verde-musgo);
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.formulario input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+.btn-enviar {
+    background-color: var(--verde-musgo);
+    color: var(--bege-claro);
+    border: none;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-enviar:hover {
+    background-color: var(--laranja);
+}
+
+/* Efeito de Escala ao clicar */
+.btn-enviar:active {
+    transform: scale(0.95);
+}
+
+.footer {
+    background-color: var(--verde-musgo);
+    color: var(--bege-claro);
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ========================================= */
+@media (min-width: 768px) {
+    .navbar ul { display: flex; }
+    .galeria { grid-template-columns: repeat(2, 1fr); } /* 2 colunas tablet */
+}
+
+@media (min-width: 1024px) {
+    .galeria { grid-template-columns: repeat(3, 1fr); } /* 3 colunas desktop */
+}
+
+/* =========================================
+   5. ACESSIBILIDADE (PREFERS-REDUCED-MOTION)
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        transform: none !important;
+    }
+}

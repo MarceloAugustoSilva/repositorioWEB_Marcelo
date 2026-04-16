@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout CSS Grid Semântico</title>
+    <link rel="stylesheet" href="aula07.css">
+</head>
+<body class="grid-container">
+
+    <header class="header">
+        <h1>Meu Site em Grid</h1>
+    </header>
+
+    <aside class="sidebar">
+        <nav>
+            <h2>Navegação</h2>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Sobre</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <h2>Galeria Responsiva</h2>
+        <p>Redimensione a tela e veja os cards se ajustando sozinhos!</p>
+        
+        <section class="galeria">
+            <article class="card">
+                <h3>Card 1</h3>
+                <p>Conteúdo perfeitamente centralizado.</p>
+            </article>
+            <article class="card">
+                <h3>Card 2</h3>
+                <p>Graças ao place-items: center!</p>
+            </article>
+            <article class="card">
+                <h3>Card 3</h3>
+                <p>Mínimo 200px de largura.</p>
+            </article>
+            <article class="card">
+                <h3>Card 4</h3>
+                <p>Máximo 1fr (fração do espaço).</p>
+            </article>
+            <article class="card">
+                <h3>Card 5</h3>
+                <p>auto-fit cuida das quebras.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>FATEC 2026 - Layout com CSS Grid Semântico</p>
+    </footer>
+
+</body>
+</html>

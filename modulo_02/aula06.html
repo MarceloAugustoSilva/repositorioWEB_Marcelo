@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Flexbox Completo</title>
+    <link rel="stylesheet" href="aula06.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><h2>MinhaLogo</h2></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container-principal">
+        
+        <aside>
+            <h3>Menu Lateral</h3>
+            <p>Este menu tem exatos 250px de largura.</p>
+        </aside>
+
+        <main>
+            
+            <section class="hero">
+                <div>
+                    <h2>Bem-vindo ao Mundo do Flexbox!</h2>
+                    <p>Totalmente centralizado, não importa o tamanho da tela.</p>
+                </div>
+            </section>
+
+            <section class="cards-section">
+                <div class="card">
+                    <h3>Card 1</h3>
+                    <p>Com flex-wrap</p>
+                </div>
+                <div class="card">
+                    <h3>Card 2</h3>
+                    <p>O gap cuida do espaço entre as telas sem precisar usar margins complicadas.</p>
+                </div>
+                <div class="card">
+                    <h3>Card 3</h3>
+                    <p>Todas as telas crescemos proporcionalmente graças ao flex: 1 1 200px.</p>
+                </div>
+                <div class="card">
+                    <h3>Card 4</h3>
+                    <p>Experimente redimensionar.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer>
+        <p>Este footer vai ficar sempre no final da página.</p>
+    </footer>
+
+</body>
+</html>
