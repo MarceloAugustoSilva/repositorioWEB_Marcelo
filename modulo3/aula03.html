@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards de Produtos</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #0f111a; color: white; padding: 20px; }
+        h1 { color: #8b80f9; }
+        
+        .painel-controles { background-color: #771a6b; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .painel-controles h3 { margin-top: 0; color: #a0a5cc; font-size: 16px; }
+        
+        input { padding: 10px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #0f111a; color: white; margin-right: 10px; margin-bottom: 10px;}
+        button { padding: 10px 15px; border-radius: 4px; border: none; cursor: pointer; font-weight: bold; margin-right: 10px; margin-bottom: 10px; transition: 0.2s;}
+        
+        .btn-primario { background-color: #6c5ce7; color: white; }
+        .btn-primario:hover { background-color: #5a4bcf; }
+        .btn-secundario { background-color: #be1414; color: white; }
+        .btn-secundario:hover { background-color: #c0392b; }
+        .btn-filtro { background-color: #00b899; color: white; }
+        .btn-filtro:hover { background-color: #00a884; }
+
+        /* Estilo do container e dos cards */
+        #container { display: flex; flex-wrap: wrap; gap: 15px; }
+        .card { background-color: #252a41; border: 1px solid #3a3f58; padding: 15px; border-radius: 8px; width: 220px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .card h4 { margin: 0 0 10px 0; color: #fff; font-size: 18px;}
+        .card p { margin: 5px 0; color: #a0a5cc; font-size: 14px;}
+        .preco { color: #4ade80 !important; font-weight: bold; font-size: 16px !important;}
+
+        /* Classe usada no passo 5 para o classList.toggle */
+        .escondido { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <h1>Gestão de Produtos</h1>
+
+    <!-- Desafio Extra: Inputs e Botão para inserir novos produtos -->
+    <div class="painel-controles">
+        <h3>Adicionar Novo Produto (Desafio Extra)</h3>
+        <input type="text" id="inputNome" placeholder="Nome do produto">
+        <input type="number" id="inputPreco" placeholder="Preço (Ex: 150.50)">
+        <input type="text" id="inputCategoria" placeholder="Categoria">
+        <button class="btn-primario" onclick="adicionarProdutoDinâmico()">Adicionar Produto</button>
+    </div>
+
+    <!-- Botões dos passos 5 e 6 -->
+    <div class="painel-controles">
+        <button class="btn-filtro" onclick="filtrarEletronicos()">Mostrar só eletrônicos (Toggle)</button>
+        <button class="btn-secundario" onclick="limparCards()">Limpar tudo</button>
+    </div>
+
+    <!-- 1. Crie um HTML com um div#container vazio -->
+    <div id="container"></div>
+
+    <!-- Ligando o ficheiro JS -->
+    <script src="aula03.js"></script>
+</body>
+</html>

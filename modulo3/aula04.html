@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #0f111a; color: white; padding: 20px; }
+        .container { background-color: #1a1d2e; padding: 20px; border-radius: 8px; max-width: 400px; margin: auto; }
+        h1 { color: #8b80f9; text-align: center; }
+        
+        input { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #0f111a; color: white; box-sizing: border-box; }
+        button[type="submit"] { width: 100%; padding: 10px; background-color: #6c5ce7; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-bottom: 20px; }
+        button[type="submit"]:hover { background-color: #5a4bcf; }
+        
+        ul { list-style-type: none; padding: 0; }
+        
+        /* Estilo para cada tarefa */
+        li { background-color: #252a41; margin-bottom: 10px; padding: 12px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1px solid #3a3f58; transition: 0.2s; }
+        li:hover { background-color: #2f3553; }
+        
+        /* Classe que será alternada no clique (Passo 4) */
+        .riscada { text-decoration: line-through; color: #a0a5cc; opacity: 0.6; }
+        
+        /* Botão X para remover (Passo 5) */
+        .btn-excluir { background-color: #e74c3c; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer; font-weight: bold; }
+        .btn-excluir:hover { background-color: #c0392b; }
+        
+        .divisor { border-bottom: 1px solid #3a3f58; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Minhas Tarefas</h1>
+
+        <!-- 6. Campo de busca -->
+        <input type="text" id="input-busca" placeholder="🔍 Buscar tarefas...">
+
+        <div class="divisor"></div>
+
+        <!-- 1. Formulário com input e botão "Adicionar" -->
+        <form id="form-tarefa">
+            <input type="text" id="input-nova-tarefa" placeholder="O que precisa ser feito?" required>
+            <button type="submit">Adicionar Tarefa</button>
+        </form>
+
+        <!-- Lista onde as tarefas (<li>) serão injetadas -->
+        <ul id="lista-tarefas"></ul>
+    </div>
+
+    <!-- Ligação com o ficheiro JavaScript -->
+    <script src="aula04.js"></script>
+</body>
+</html>

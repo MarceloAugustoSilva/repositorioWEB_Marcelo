@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex Interativa</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #0f111a; color: white; display: flex; flex-direction: column; align-items: center; padding: 30px; }
+        h1 { color: #8b80f9; margin-bottom: 20px;}
+        
+        .search-container { display: flex; gap: 10px; margin-bottom: 30px; width: 100%; max-width: 400px; }
+        input { flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #3a3f58; background-color: #1a1d2e; color: white; font-size: 16px; }
+        button { padding: 12px 20px; border: none; border-radius: 6px; background-color: #6c5ce7; color: white; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button:hover { background-color: #5a4bcf; }
+        
+        /* Botões do Desafio Extra */
+        .btn-nav { background-color: #252a41; border: 1px solid #3a3f58; color: #a0a5cc; }
+        .btn-nav:hover { background-color: #3a3f58; color: white; }
+        .nav-container { display: flex; gap: 15px; margin-top: 20px; }
+
+        /* Estrutura do Card */
+        #pokedex-card {
+            background-color: #252a41; /* Cor padrão */
+            border-radius: 16px;
+            padding: 30px;
+            width: 320px;
+            min-height: 450px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.4s ease;
+        }
+
+        .img-container { width: 180px; height: 180px; background-color: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; padding: 10px; }
+        .img-container img { max-width: 100%; max-height: 100%; drop-shadow: 2px 4px 6px rgba(0,0,0,0.3); }
+        
+        .pokemon-nome { text-transform: capitalize; font-size: 28px; margin: 0 0 10px 0; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        .pokemon-id { color: rgba(255,255,255,0.6); font-size: 18px; }
+        
+        .types-container { display: flex; gap: 10px; margin-bottom: 20px; }
+        .type-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; color: white; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        
+        .stats-container { width: 100%; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; box-sizing: border-box; }
+        .stat-linha { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; }
+        .stat-linha:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .stat-nome { color: rgba(255,255,255,0.8); }
+        .stat-valor { font-weight: bold; }
+
+        .mensagem { font-size: 18px; font-weight: bold; text-align: center; color: white; }
+
+        /* Cores baseadas nos tipos (Passo 5) */
+        .tipo-normal { background-color: #A8A77A; } .tipo-fire { background-color: #EE8130; }
+        .tipo-water { background-color: #6390F0; }  .tipo-electric { background-color: #F7D02C; color: #333; }
+        .tipo-grass { background-color: #7AC74C; }  .tipo-ice { background-color: #96D9D6; color: #333; }
+        .tipo-fighting { background-color: #C22E28; } .tipo-poison { background-color: #A33EA1; }
+        .tipo-ground { background-color: #E2BF65; } .tipo-flying { background-color: #A98FF3; }
+        .tipo-psychic { background-color: #F95587; } .tipo-bug { background-color: #A6B91A; }
+        .tipo-rock { background-color: #B6A136; }   .tipo-ghost { background-color: #735797; }
+        .tipo-dragon { background-color: #6F35FC; } .tipo-dark { background-color: #705746; }
+        .tipo-steel { background-color: #B7B7CE; color: #333; } .tipo-fairy { background-color: #D685AD; }
+    </style>
+</head>
+<body>
+
+    <h1>Pokédex</h1>
+
+    <!-- 1. Input e Botão Buscar -->
+    <div class="search-container">
+        <input type="text" id="input-pokemon" placeholder="Digite nome ou número...">
+        <button id="btn-buscar">Buscar</button>
+    </div>
+
+    <!-- Container do Card -->
+    <div id="pokedex-card">
+        <div class="mensagem" style="color: #a0a5cc;">Pesquise um Pokémon para começar!</div>
+    </div>
+
+    <!-- Desafio Extra: Botões de navegação -->
+    <div class="nav-container">
+        <button id="btn-anterior" class="btn-nav">⬅ Anterior</button>
+        <button id="btn-proximo" class="btn-nav">Próximo ➡</button>
+    </div>
+
+    <script src="aula05.js"></script>
+</body>
+</html>
