@@ -1,0 +1,12 @@
+{
+  "curso": "Node.js - Módulo 06",
+  "aluno": "Marcelo",
+  "topicos": [
+    "Instalação do Node.js",
+    "Módulos e exports",
+    "Sistema de arquivos (fs)",
+    "Servidor HTTP",
+    "npm e nodemon"
+  ],
+  "concluido": true
+}

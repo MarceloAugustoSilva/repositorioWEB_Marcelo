@@ -1,0 +1,4 @@
+node_modules/
+resultado.txt
+.env
+*.log

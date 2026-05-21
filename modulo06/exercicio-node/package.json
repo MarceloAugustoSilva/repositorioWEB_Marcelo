@@ -1,0 +1,19 @@
+{
+  "name": "exercicio-node",
+  "version": "1.0.0",
+  "description": "Exercício prático de primeiros passos com Node.js.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "server": "node server.js",
+    "server:json": "node server-json.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
