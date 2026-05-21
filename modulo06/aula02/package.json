@@ -1,0 +1,20 @@
+{
+  "name": "aula02",
+  "version": "1.0.0",
+  "description": "Exercício prático: API REST de tarefas com Express, organizada em estrutura MVC.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
