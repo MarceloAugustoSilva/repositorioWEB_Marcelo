@@ -1,6 +1,6 @@
-# express_mongo - API de Alunos com MongoDB
+# express_mongo - API de Alunos com MongoDB + Autenticação JWT
 
-API REST com Express + Mongoose + dotenv conectada ao MongoDB Atlas.
+API REST com Express + Mongoose + dotenv + bcrypt + JWT, conectada ao MongoDB Atlas.
 
 ## Estrutura
 
@@ -13,86 +13,94 @@ express_mongo/
 │   └── database.js              # conexão com MongoDB Atlas
 ├── models/
 │   ├── Aluno.js                 # schema com validações
-│   └── Curso.js                 # desafio extra
+│   ├── Curso.js                 # desafio extra
+│   └── Usuario.js               # com hash automático (pre save)
 ├── controllers/
-│   ├── alunoController.js       # CRUD + try/catch
-│   └── cursoController.js
-└── routes/
-    ├── alunoRoutes.js
-    └── cursoRoutes.js
+│   ├── alunoController.js
+│   ├── cursoController.js
+│   └── authController.js        # registrar / login / eu
+├── routes/
+│   ├── alunoRoutes.js           # protegidas com auth
+│   ├── cursoRoutes.js
+│   └── authRoutes.js
+└── middlewares/
+    ├── auth.js                  # verifica JWT (Bearer token)
+    └── autorizar.js             # desafio extra: autorização por role
 ```
 
 ## Configuração
 
-1. Instale as dependências:
-   ```bash
-   npm install
-   ```
-
-2. Crie um arquivo `.env` baseado em `.env.example`:
+1. `npm install`
+2. Crie um `.env` baseado em `.env.example`:
    ```env
    PORT=3000
    MONGO_URI=mongodb+srv://USUARIO:SENHA@cluster0.xxxxx.mongodb.net/escola
+   JWT_SECRET=uma-string-bem-secreta
+   JWT_EXPIRES_IN=1d
    ```
+3. `npm run dev`
 
-3. Inicie o servidor:
-   ```bash
-   npm run dev     # com nodemon
-   npm start       # node app.js
-   ```
+## Rotas de autenticação
 
-## Rotas
+| Método | Rota | Acesso | Descrição |
+|--------|------|--------|-----------|
+| POST   | `/auth/registrar` | público | cria usuário (campo `role` é ignorado — sempre `user`) |
+| POST   | `/auth/login`     | público | retorna `{ usuario, token }` |
+| GET    | `/auth/eu`        | 🔒      | retorna dados do usuário do token |
 
-### Alunos
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET    | `/alunos` | lista todos (filtros: `?curso=Web&ativo=true`) |
-| GET    | `/alunos/:id` | busca por id |
-| POST   | `/alunos` | cria aluno |
-| PUT    | `/alunos/:id` | atualiza |
-| DELETE | `/alunos/:id` | remove |
+## Rotas protegidas (precisam de Bearer token)
 
-### Cursos (desafio extra)
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET    | `/cursos` | lista cursos |
-| GET    | `/cursos/:id` | busca por id |
-| POST   | `/cursos` | cria curso |
-| PUT    | `/cursos/:id` | atualiza |
-| DELETE | `/cursos/:id` | remove |
+| Método | Rota | Acesso | Descrição |
+|--------|------|--------|-----------|
+| GET    | `/alunos`     | 🔒 user/admin | lista (filtros `?curso=Web&ativo=true`) |
+| GET    | `/alunos/:id` | 🔒 user/admin | busca por id |
+| POST   | `/alunos`     | 🔒 user/admin | cria aluno |
+| PUT    | `/alunos/:id` | 🔒 user/admin | atualiza |
+| DELETE | `/alunos/:id` | 🔒👑 admin    | remove (autorização por role) |
 
-## Exemplos (Thunder Client / curl)
+## Fluxo de uso
 
 ```bash
-# Criar aluno
-curl -X POST http://localhost:3000/alunos \
+# 1. Registrar um usuário (vira role "user")
+curl -X POST http://localhost:3000/auth/registrar \
   -H "Content-Type: application/json" \
-  -d "{\"nome\":\"Marcelo\",\"email\":\"marcelo@email.com\",\"idade\":22,\"curso\":\"Web\"}"
+  -d "{\"nome\":\"Marcelo\",\"email\":\"marcelo@email.com\",\"senha\":\"123456\"}"
 
-# Listar alunos do curso Web
-curl http://localhost:3000/alunos?curso=Web
-
-# Criar curso e relacionar com aluno (passar cursoRef com o _id retornado)
-curl -X POST http://localhost:3000/cursos \
+# 2. Login -> guarda o token retornado
+curl -X POST http://localhost:3000/auth/login \
   -H "Content-Type: application/json" \
-  -d "{\"nome\":\"Web Full Stack\",\"cargaHoraria\":200}"
+  -d "{\"email\":\"marcelo@email.com\",\"senha\":\"123456\"}"
+
+# 3. Usar o token nas rotas protegidas
+curl http://localhost:3000/alunos \
+  -H "Authorization: Bearer <SEU_TOKEN_AQUI>"
 ```
 
-## Schema do Aluno
+## Como criar um admin
 
-| Campo      | Tipo     | Regras                                      |
-|------------|----------|---------------------------------------------|
-| nome       | String   | obrigatório, mín. 2 caracteres              |
-| email      | String   | obrigatório, único, formato válido          |
-| idade      | Number   | 1–120                                       |
-| curso      | String   | obrigatório                                 |
-| cursoRef   | ObjectId | referência para `Curso` (desafio extra)     |
-| ativo      | Boolean  | default `true`                              |
+Por segurança, a rota pública `/auth/registrar` **sempre cria usuários com role `user`**.
+Para promover alguém a admin, atualize direto no MongoDB Atlas:
+
+```js
+db.usuarios.updateOne({ email: 'admin@email.com' }, { $set: { role: 'admin' } })
+```
+
+## Schema do Usuário
+
+| Campo | Tipo    | Regras                                  |
+|-------|---------|-----------------------------------------|
+| nome  | String  | obrigatório, mín. 2 caracteres          |
+| email | String  | obrigatório, único, regex de email      |
+| senha | String  | obrigatório, mín. 6 chars, hash bcrypt automático no `pre save` |
+| role  | String  | enum `'admin' \| 'user'`, default `user` |
 
 ## Tratamento de erros
 
-Todo controller usa `try/catch` e retorna:
-- **400** para `ValidationError` e `CastError` (id inválido)
-- **404** para registros não encontrados
-- **409** para e-mail duplicado (índice único)
-- **500** para erros inesperados
+| Status | Quando |
+|--------|--------|
+| 400 | ValidationError, CastError, body inválido |
+| 401 | sem token, token inválido, token expirado, credenciais erradas |
+| 403 | autenticado mas sem permissão (role) |
+| 404 | recurso não encontrado |
+| 409 | e-mail duplicado |
+| 500 | erro interno |
